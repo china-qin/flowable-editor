@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
 import {Addon, Graph, Shape} from "@antv/x6";
+import './config/ShapConfig'
 
 function App() {
     const graphContainer: any = useRef<HTMLDivElement>(null);
