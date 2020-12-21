@@ -6,6 +6,16 @@ import './config/ShapConfig'
 function App() {
     const graphContainer: any = useRef<HTMLDivElement>(null);
     const stencilContainer: any = useRef<HTMLDivElement>(null);
+    const magnetAvailabilityHighlighter = {
+        name: 'stroke',
+        args: {
+            padding: 3,
+            attrs: {
+                strokeWidth: 3,
+                stroke: '#52c41a',
+            },
+        },
+    }
     let graph :Graph;
     useEffect(() => {
         if (!graph) {
@@ -16,8 +26,42 @@ function App() {
                     enabled: true,
                     sharp: true,
                 },
+                highlighting: {
+                    magnetAvailable: magnetAvailabilityHighlighter,
+                },
                 grid: {
                     visible: true,
+                },
+                connecting: {
+                    dangling: false,
+                    snap: true,
+                    highlight: true,
+                    validateMagnet({ magnet }) {
+                        return magnet.getAttribute('port-group') !== 'in'
+                    },
+                    validateConnection({
+                                           sourceView,
+                                           sourceMagnet,
+                                           targetView,
+                                           targetMagnet,
+                                       }) {
+                        if (sourceView === targetView) {
+                            return false
+                        }
+                        if (
+                            !sourceMagnet ||
+                            sourceMagnet.getAttribute('port-group') === 'in'
+                        ) {
+                            return false
+                        }
+                        if (
+                            !targetMagnet ||
+                            targetMagnet.getAttribute('port-group') !== 'in'
+                        ) {
+                            return false
+                        }
+                        return true
+                    },
                 },
             });
             graph.centerContent();
@@ -36,8 +80,35 @@ function App() {
                         strokeWidth: 2,
                     },
                 },
+                ports: [
+                    { id: 'in-1', group: 'in' },
+                    { id: 'in-2', group: 'in' },
+                    { id: 'out-1', group: 'out' },
+                    { id: 'out-2', group: 'out' },
+                ],
             });
-
+            graph.addNode({
+                x: 230,
+                y: 80,
+                width: 100,
+                height: 40,
+                attrs: {
+                    label: {
+                        text: 'rect',
+                        fill: '#6a6c8a',
+                    },
+                    body: {
+                        stroke: '#31d0c6',
+                        strokeWidth: 2,
+                    },
+                },
+                ports: [
+                    { id: 'in-1', group: 'in' },
+                    { id: 'in-2', group: 'in' },
+                    { id: 'out-1', group: 'out' },
+                    { id: 'out-2', group: 'out' },
+                ],
+            });
             const stencil = new Addon.Stencil({
                 title: '工作流编辑器',
                 target: graph,
