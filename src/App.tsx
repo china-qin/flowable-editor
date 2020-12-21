@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import {Addon, Graph, Shape} from "@antv/x6";
+import {Addon, Edge, Graph, Shape} from "@antv/x6";
 import './config/ShapConfig'
+import {endNode, startNode, testNode} from "./stencil/StencilShap";
 
 function App() {
     const graphContainer: any = useRef<HTMLDivElement>(null);
     const stencilContainer: any = useRef<HTMLDivElement>(null);
+    const minimapContainer: any = useRef<HTMLDivElement>(null)
     const magnetAvailabilityHighlighter = {
         name: 'stroke',
         args: {
@@ -21,7 +23,11 @@ function App() {
         if (!graph) {
             graph = new Graph({
                 container: graphContainer.current,
-                selecting:true,
+                selecting: {
+                    enabled: true,
+                    showNodeSelectionBox: true,
+                    showEdgeSelectionBox: true,
+                },
                 snapline: {
                     enabled: true,
                     sharp: true,
@@ -32,10 +38,26 @@ function App() {
                 grid: {
                     visible: true,
                 },
+                scroller: {
+                    enabled:true,
+                },
+                minimap: {
+                    enabled: true,
+                    container: minimapContainer.current ,
+                    padding: 1,
+                },
+                mousewheel: {
+                    enabled: true,
+                    modifiers: ['ctrl', 'meta'],
+                },
+
                 connecting: {
                     dangling: false,
-                    snap: true,
+                    snap: {
+                        radius:50,
+                    },
                     highlight: true,
+                    router: 'metro',
                     validateMagnet({ magnet }) {
                         return magnet.getAttribute('port-group') !== 'in'
                     },
@@ -123,43 +145,25 @@ function App() {
                 },
                 groups: [
                     {
-                        name: 'group1',
+                        name: '节点',
                         graphWidth:200,
-                        graphHeight:500,
+                        graphHeight:180,
                     },
                     {
-                        name: 'group2',
+                        name: '事务',
+                    },
+                    {
+                        name: '网关',
+                    },
+                    {
+                        name: '甬道',
                     },
                 ],
             });
 
             stencilContainer.current.appendChild(stencil.container);
 
-            var r = new Shape.Rect({
-                size: {width: 100, height: 40},
-                attrs: {
-                    rect: {fill: '#31D0C6', stroke: '#4B4A67', 'stroke-width': 8},
-                    text: {text: 'rect', fill: 'white'},
-                },
-            })
-
-            var c = new Shape.Circle({
-                // position: {x: 10, y: 100},
-                size: {width: 70, height: 90},
-                attrs: {
-                    circle: {fill: '#FE854F', 'stroke-width': 8, stroke: '#4B4A67'},
-                    text: {text: 'ellipse', fill: 'white'},
-                },
-            })
-            var c1 = new Shape.Circle({
-                // position: {x: 10, y: 100},
-                size: {width: 70, height: 90},
-                attrs: {
-                    circle: {fill: '#FE854F', 'stroke-width': 8, stroke: '#4B4A67'},
-                    text: {text: 'ellipse', fill: 'white'},
-                },
-            })
-            stencil.load([r, c,c1],'group1')
+            stencil.load([startNode,endNode],'节点')
         }
     });
     return (
@@ -171,7 +175,20 @@ function App() {
                 width: 200,
                 height: '100vh',
             }}/>
-            <div ref={graphContainer} style={{position:'absolute',width: 'calc(100% - 200px)', left: '200px', height: '100vh'}}/>
+            <div ref={graphContainer} style={{
+                position: 'absolute',
+                width: 'calc(100% - 200px)',
+                left: '200px',
+                height: '100vh'
+            }}/>
+            <div ref={minimapContainer} style={{
+                position: 'absolute',
+                width: 300,
+                height:200,
+                top:2,
+                right:2,
+                zIndex:99,
+            }}/>
         </>
     );
 }
