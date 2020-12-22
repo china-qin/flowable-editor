@@ -19,10 +19,10 @@ const startNode: any = new Shape.Circle({
         {
             id: 'out-1',
             group: 'out',
-
             attrs:{
                 circle: {
                     fill: '#78cbc6',
+                    stroke: '#4b4a67',
                 },
             },
         },
@@ -51,33 +51,90 @@ const endNode: any = new Shape.Circle({
             attrs:{
                 circle: {
                     fill: '#e0a88f',
+                    stroke: '#4b4a67',
                 },
             },
         },
     ]
 });
 
-const testNode: any = new Shape.Rect(
+const taskNode: any = new Shape.Rect(
     {
-        x: 130,
-        y: 30,
         width: 100,
-        height: 40,
+        height: 50,
         attrs: {
             label: {
-                text: 'rect',
-                fill: '#6a6c8a',
+                text: '任务',
             },
             body: {
-                stroke: '#31d0c6',
-                strokeWidth: 2,
+                fill: '#a7cae9',
+                stroke: '#4B4A67',
+                strokeWidth: 4,
+                rx: 5,
+                ry: 5,
             },
         },
         ports: [
-            {id: 'in-1', group: 'in'},
-            {id: 'in-2', group: 'in'},
-            {id: 'out-1', group: 'out'},
-            {id: 'out-2', group: 'out'},
+            {
+                id: 'in-1',
+                group: 'in',
+                attrs:{
+                    circle: {
+                        fill: '#e0a88f',
+                        stroke: '#4b4a67',
+                    },
+                },
+            },
+            {
+                id: 'out-1',
+                group: 'out',
+                attrs:{
+                    circle: {
+                        fill: '#78cbc6',
+                        stroke: '#4b4a67',
+                    },
+                },
+            },
+        ],
+    }
+)
+
+const switchNode: any = new Shape.Polygon(
+    {
+        x: 40,
+        y: 40,
+        width: 50,
+        height: 50,
+        label: 'X',
+        attrs: {
+            body: {
+                fill: '#efdbff',
+                stroke: '#4b4a67',
+                strokeWidth: 4,
+                refPoints: '0,10 10,0 20,10 10,20',
+            },
+        },
+        ports: [
+            {
+                id: 'in-1',
+                group: 'in',
+                attrs:{
+                    circle: {
+                        fill: '#e0a88f',
+                        stroke: '#4b4a67',
+                    },
+                },
+            },
+            {
+                id: 'out-1',
+                group: 'out',
+                attrs:{
+                    circle: {
+                        fill: '#78cbc6',
+                        stroke: '#4b4a67',
+                    },
+                },
+            },
         ],
     }
 )
@@ -85,6 +142,7 @@ const testNode: any = new Shape.Rect(
 export {
     startNode,
     endNode,
-    testNode
+    taskNode,
+    switchNode
 };
 
