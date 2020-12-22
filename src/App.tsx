@@ -4,29 +4,14 @@ import {Addon, Edge, Graph} from "@antv/x6";
 import './config/ShapConfig'
 import {endNode, startNode, switchNode, taskNode} from "./stencil/StencilShap";
 
-const edgeTest = new Edge({
-    shape: 'shadow-edge',
-    source: { x: 320, y: 100 },
-    target: { x: 380, y: 260 },
-    vertices: [{ x: 320, y: 200 }],
-    connector: { name: 'rounded' },
+const edgeTest = {
+    shape: 'double-edge',
     attrs: {
         line: {
-            strokeWidth: 8,
-            stroke: '#73d13d',
-            targetMarker: {
-                tagName: 'path',
-                stroke: '#237804',
-                strokeWidth: 2,
-                d: 'M 0 -4 0 -10 -12 0 0 10 0 4',
-            },
-        },
-        outline: {
-            stroke: '#237804',
-            strokeWidth: 12,
+            stroke: '#7c68fc',
         },
     },
-});
+}
 
 function App() {
     const graphContainer: any = useRef<HTMLDivElement>(null);
@@ -82,27 +67,12 @@ function App() {
                     },
                     highlight: true,
                     router: 'metro',
-                    createEdge({
+                    createEdge(this,{
                                    sourceCell,
                                    sourceView,
                                    sourceMagnet
-                               }) {
-                        return new Edge({
-                            connector: { name: 'rounded' },
-                            attrs: {
-                                line: {
-                                    stroke: '#7c68fc',
-                                    strokeWidth: 8,
-                                    targetMarker: {
-                                        tagName: 'path',
-                                        fill: 'yellow',  // 使用自定义填充色
-                                        stroke: 'green', // 使用自定义边框色
-                                        strokeWidth: 2,
-                                        d: 'M 20 -10 0 0 20 10 Z',
-                                    },
-                                },
-                            },
-                        });
+                               }){
+                        return this.addEdge(edgeTest)
                     },
                     validateMagnet({magnet}) {
                         return magnet.getAttribute('port-group') !== 'in'
@@ -133,7 +103,6 @@ function App() {
                 },
             });
             graph.centerContent();
-            graph.addEdge(edgeTest);
             const stencil = new Addon.Stencil({
                 title: '工作流编辑器',
                 target: graph,
