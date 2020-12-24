@@ -26,7 +26,8 @@ const startNode: any = new Shape.Circle({
                 },
             },
         },
-    ]
+    ],
+    data:{}
 });
 
 const endNode: any = new Shape.Circle({

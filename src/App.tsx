@@ -11,6 +11,10 @@ const edgeTest = {
             stroke: '#7c68fc',
         },
     },
+    connector: 'rounded',
+    data:{
+        gogo: '0000'
+    }
 }
 
 function App() {
@@ -30,13 +34,17 @@ function App() {
     let graph: Graph;
     useEffect(() => {
         if (!graph) {
+            console.log("init graph")
             graph = new Graph({
                 container: graphContainer.current,
                 selecting: {
                     enabled: true,
-                    showNodeSelectionBox: true,
-                    showEdgeSelectionBox: true,
-                },
+                    rubberband: true,
+                    multiple: true,
+                    strict: true,
+                    // showNodeSelectionBox: true,
+                    selectCellOnMoved: false,                },
+                // keyboard: true,
                 snapline: {
                     enabled: true,
                     sharp: true,
@@ -67,11 +75,11 @@ function App() {
                     },
                     highlight: true,
                     router: 'metro',
-                    createEdge(this,{
-                                   sourceCell,
-                                   sourceView,
-                                   sourceMagnet
-                               }){
+                    createEdge(this, {
+                        sourceCell,
+                        sourceView,
+                        sourceMagnet
+                    }) {
                         return this.addEdge(edgeTest)
                     },
                     validateMagnet({magnet}) {
@@ -140,8 +148,52 @@ function App() {
             stencil.load([startNode, endNode], '事件')
             stencil.load([taskNode], '活动')
             stencil.load([switchNode], '网关')
+
+            graph.on('cell:click', ({cell}) => {
+                if (cell.isNode()) {
+                    cell.addTools([
+                        {
+                            name: 'boundary',
+                            args: {
+                                attrs: {
+                                    fill: '#7c68fc',
+                                    stroke: '#333',
+                                    'stroke-width': 1,
+                                    'fill-opacity': 0.2,
+                                },
+                            },
+                        },
+                        {
+                            name: 'button-remove',
+                            args: {
+                                offset: {x: -10, y: -10},
+                            },
+                        },
+                    ])
+                }
+                if (cell.isEdge()) {
+                    console.log(cell.shape)
+                    cell.addTools([
+
+                        {
+                            name: 'button-remove',
+                            args: {
+                                offset: {x: 15, y: 15},
+                            },
+                        },
+                        'vertices',
+                        'segments',
+                        'source-arrowhead',
+                        'target-arrowhead'
+                    ])
+                }
+                console.log(JSON.stringify(graph.toJSON()))
+            })
+            graph.on('cell:unselected', ({cell}) => {
+                cell.removeTools()
+            })
         }
-    });
+    },[]);
     return (
         <>
             <div ref={stencilContainer} style={{
@@ -162,7 +214,7 @@ function App() {
                 width: 300,
                 height: 200,
                 top: 2,
-                right: 2,
+                right: 30,
                 zIndex: 99,
             }}/>
         </>
