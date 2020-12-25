@@ -1,4 +1,4 @@
-import {Shape} from '@antv/x6'
+import {Graph, Shape} from '@antv/x6'
 
 Shape.Rect.config({
     ports: {
@@ -78,6 +78,8 @@ Shape.Polygon.config({
         },
     ],
 })
+
+
 
 
 
