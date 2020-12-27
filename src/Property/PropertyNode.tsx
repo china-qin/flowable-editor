@@ -26,7 +26,7 @@ const PropertyNode: React.FC<PropertyNodeProps> = ({iVisible,onDrawerClose}) => 
     return (
         <>
             <Drawer
-                title="Create a new account"
+                title="任务属性"
                 width={720}
                 onClose={onClose}
                 visible={visible}

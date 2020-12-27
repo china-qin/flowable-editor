@@ -140,10 +140,44 @@ const switchNode: any = new Shape.Polygon(
     }
 )
 
+const edgeCommon = {
+    attrs: {
+        line: {
+            stroke: '#4b4a67',
+            strokeWidth: 6,
+            targetMarker: {
+                name: 'classic',
+                height: 15,
+                offset: 0,
+            },
+        },
+    },
+    connector: 'rounded',
+}
+
+const edgeSwitch = {
+    shape: 'double-edge',
+    attrs: {
+        line: {
+            stroke: '#e39a69',
+            strokeWidth: 2,
+            targetMarker: {
+                name: 'classic',
+                height: 15,
+                offset: 0,
+            },
+        },
+    },
+    connector: 'rounded',
+}
+
+
 export {
     startNode,
     endNode,
     taskNode,
-    switchNode
+    switchNode,
+    edgeCommon,
+    edgeSwitch
 };
 
