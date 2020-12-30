@@ -1,4 +1,4 @@
-import {Node, Shape} from "@antv/x6";
+import {Shape} from "@antv/x6";
 
 const startNode: any = new Shape.Circle({
     size: {
@@ -19,7 +19,7 @@ const startNode: any = new Shape.Circle({
         {
             id: 'out-1',
             group: 'out',
-            attrs:{
+            attrs: {
                 circle: {
                     fill: '#78cbc6',
                     stroke: '#4b4a67',
@@ -27,7 +27,7 @@ const startNode: any = new Shape.Circle({
             },
         },
     ],
-    data:{}
+    data: {}
 });
 
 const endNode: any = new Shape.Circle({
@@ -49,7 +49,7 @@ const endNode: any = new Shape.Circle({
         {
             id: 'in-1',
             group: 'in',
-            attrs:{
+            attrs: {
                 circle: {
                     fill: '#e0a88f',
                     stroke: '#4b4a67',
@@ -79,7 +79,7 @@ const taskNode: any = new Shape.Rect(
             {
                 id: 'in-1',
                 group: 'in',
-                attrs:{
+                attrs: {
                     circle: {
                         fill: '#e0a88f',
                         stroke: '#4b4a67',
@@ -89,7 +89,7 @@ const taskNode: any = new Shape.Rect(
             {
                 id: 'out-1',
                 group: 'out',
-                attrs:{
+                attrs: {
                     circle: {
                         fill: '#78cbc6',
                         stroke: '#4b4a67',
@@ -99,11 +99,87 @@ const taskNode: any = new Shape.Rect(
         ],
     }
 )
+const groupNode001 = {
+    shape: 'rect-headered',
+    width: 120,
+    height: 70,
+    attrs: {
+        header: {
+            fill: '#e5d5c7',
+            refWidth: '100%',
+            height: 25,
+            stroke: '#000000',
+        },
+        headerText: {
+            text: '001',
+            fill: 'black',
+            refX: '50%',
+            refY: 12,
+            fontSize: 14,
+        },
+        body: {
+            fill: '#adcfb7',
+            refWidth: '100%',
+            refHeight: '100%',
+        },
+    },
+}
+
+const groupNode002 = {
+    shape: 'rect-headered',
+    width: 120,
+    height: 70,
+    attrs: {
+        header: {
+            fill: '#c5d3ee',
+            refWidth: '100%',
+            height: 25,
+            stroke: '#000000',
+        },
+        headerText: {
+            text: '002',
+            fill: 'black',
+            refX: '50%',
+            refY: 12,
+            fontSize: 14,
+        },
+        body: {
+            fill: '#adcfb7',
+            refWidth: '100%',
+            refHeight: '100%',
+        },
+    },
+}
+
+const groupNode = {
+    shape: 'rect-headered',
+    width: 120,
+    height: 70,
+    attrs: {
+        header: {
+            fill: '#c7e5e1',
+            refWidth: '100%',
+            height: 25,
+            stroke: '#000000',
+        },
+        headerText: {
+            text: '',
+            fill: 'black',
+            refX: '50%',
+            refY: 12,
+            fontSize: 14,
+        },
+        body: {
+            fill: '#adcfb7',
+            refWidth: '100%',
+            refHeight: '100%',
+        },
+    },
+}
+
 
 const switchNode: any = new Shape.Polygon(
     {
-        x: 40,
-        y: 40,
         width: 50,
         height: 50,
         label: 'X',
@@ -119,7 +195,7 @@ const switchNode: any = new Shape.Polygon(
             {
                 id: 'in-1',
                 group: 'in',
-                attrs:{
+                attrs: {
                     circle: {
                         fill: '#e0a88f',
                         stroke: '#4b4a67',
@@ -129,7 +205,7 @@ const switchNode: any = new Shape.Polygon(
             {
                 id: 'out-1',
                 group: 'out',
-                attrs:{
+                attrs: {
                     circle: {
                         fill: '#78cbc6',
                         stroke: '#4b4a67',
@@ -178,6 +254,9 @@ export {
     taskNode,
     switchNode,
     edgeCommon,
-    edgeSwitch
+    edgeSwitch,
+    groupNode001,
+    groupNode002,
+    groupNode
 };
 
