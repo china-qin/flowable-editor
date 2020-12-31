@@ -47,10 +47,7 @@ const App: React.FC = () => {
                     if (child.shape === 'rect-headered') {
                         return false
                     }
-                    if (parent.shape !== 'rect-headered') {
-                        return false
-                    }
-                    return true;
+                    return parent.shape === 'rect-headered';
                 },
             },
             grid: {
@@ -104,7 +101,6 @@ const App: React.FC = () => {
                     switch (sourceCell.shape) {
                         case 'polygon':
                             return this.addEdge(edgeSwitch)
-                            break;
                         default:
                             return this.addEdge(edgeCommon)
                     }
@@ -127,13 +123,9 @@ const App: React.FC = () => {
                     ) {
                         return false
                     }
-                    if (
-                        !targetMagnet ||
-                        targetMagnet.getAttribute('port-group') !== 'in'
-                    ) {
-                        return false
-                    }
-                    return true
+                    return !(!targetMagnet ||
+                        targetMagnet.getAttribute('port-group') !== 'in');
+
                 },
             },
         });
