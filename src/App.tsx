@@ -249,7 +249,7 @@ const App: React.FC = () => {
                                             },
                                         },
                                     ],
-                                    x: -10,
+                                    x: - 10,
                                     y: 40,
                                     onClick({view}: any) {
                                         setNodeVisible(true);
